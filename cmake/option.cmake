@@ -12,7 +12,7 @@ set(CMAKE_C_FLAGS " ${CMAKE_C_FLAGS} \
 		-march=armv7-m \
 		-mabi=aapcs \
 		-fno-builtin	\
-		-w ")
+		 ")
 set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} \
                 -Wall \
                 -DGCC_COMPILE=1 \
@@ -25,7 +25,7 @@ set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} \
                 -march=armv7-m \
                 -mabi=aapcs \
                 -fno-builtin    \
-                -w " )
+                 " )
 
 
 set(CMAKE_EXE_LINKER_FLAGS " ${CMAKE_EXE_LINKER_FLAGS}\
