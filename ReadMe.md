@@ -53,7 +53,7 @@ mingw32-make
 export WM_PORT=实际串口
 ```
 
-如设置成功,则编译完成后可执行以下烧录命令:
+如设置成功,则编译完成后可执行以下烧录命令(Linux下可能要使用sudo):
 
 ```bash
 make flash
