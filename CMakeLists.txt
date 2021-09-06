@@ -527,16 +527,14 @@ add_custom_target(${PROJECT_NAME}.fls ALL
 
 #flash 目标 （使用 make flash WM_PORT=串口 烧录）
 
-##烧录的串口
-set(WM_PORT ttyUSB0)
-
-##通过环境变量
-if(DEFINED ENV{WM_PORT})
-    set(WM_PORT $ENV{WM_PORT})
+##默认的烧录串口
+##环境变量
+if(NOT DEFINED ENV{WM_PORT})
+    set(ENV{WM_PORT} ttyUSB0)
 endif()
 
 
 add_custom_target(flash
-                    COMMAND ${WM_TOOL} -c ${WM_PORT} -eo all -dl ${PROJECT_NAME}.fls
+                    COMMAND ${WM_TOOL} -c $ENV{WM_PORT} -eo all -dl ${PROJECT_NAME}.fls
                     DEPENDS ${PROJECT_NAME}.fls
                     )
