@@ -490,5 +490,37 @@ add_custom_target(${PROJECT_NAME}.bin ALL
 				 DEPENDS ${PROJECT_NAME}
 				 )
 
+#准备wm_tool
+find_program(WM_TOOL
+               NAMES wm_tool
+               PATHS ${SDK_ROOT}/Tools ${CMAKE_BINARY_DIR}/
+               NO_CACHE
+               )
+if(NOT EXISTS ${WM_TOOL})
+    message("wm_tool is not found,try to compile!")
+    #使用C编译器编译
+    find_program(CC NAMES cc gcc REQUIRED)
+    message("cc path: ${CC}")
+    execute_process(COMMAND ${CC} -pthread ${SDK_ROOT}/Tools/src/wm_tool.c  -o ${CMAKE_BINARY_DIR}/wm_tool)
+    find_program(WM_TOOL
+               NAMES wm_tool
+               PATHS  ${CMAKE_BINARY_DIR}/ ${SDK_ROOT}/Tools
+               NO_CACHE
+               REQUIRED
+               )
+    message("wm_tool path: ${WM_TOOL}" )
+else()
+    message("wm_tool path: ${WM_TOOL}" )
+endif()
 
+if(${BUILD_FLASH_2M})
+    set(GREATE_IMG_FLAGS  -b ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.bin -sb ${SDK_ROOT}/Bin/secboot.img  -fc compress -it 2M -ua 100000 -ra 10100 -df -o ${PROJECT_NAME})
+else()
+    set(GREATE_IMG_FLAGS  -b ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.bin -sb ${SDK_ROOT}/Bin/secboot.img  -fc compress -it 1M -ua 90000 -ra 10100 -df -o ${PROJECT_NAME})
+endif()
 
+#生成其它镜像文件（包括fls文件）
+add_custom_target(${PROJECT_NAME}.fls ALL
+				 COMMAND ${WM_TOOL} ${GREATE_IMG_FLAGS}
+				 DEPENDS ${PROJECT_NAME}.bin
+				 )
