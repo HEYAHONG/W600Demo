@@ -6,7 +6,8 @@
 
 ## 工具
 
-- arm-none-eabi-gcc :工具链。
+- gcc:用于编译wm_tool,windows平台不需要。
+- arm-none-eabi-gcc :工具链，C运行库为newlib，windows平台下需使用MSYS2/Cygwin下的arm-none-eabi-gcc。
 - cmake :生成工程文件。
 - make ：执行编译，也可使用其它工具。
 
