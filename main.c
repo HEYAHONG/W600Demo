@@ -1,5 +1,6 @@
 #include "wm_include.h"
 #include "stdbool.h"
+#include "appconfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
 
