@@ -7,13 +7,14 @@
 ## 工具
 
 - gcc:用于编译wm_tool,windows平台不需要。
-- arm-none-eabi-gcc :工具链，C运行库为newlib，windows平台下需使用MSYS2/Cygwin下的arm-none-eabi-gcc。
+- arm-none-eabi-gcc :工具链，C运行库为newlib，windows平台下需使用MSYS2 Mingw32/Mingw64下的arm-none-eabi-gcc。
 - cmake :生成工程文件。
-- make ：执行编译，也可使用其它工具。
+- make :执行编译，也可使用其它工具。
+- python:执行脚本，可能需要手动安装pip。
 
 ## 步骤
 
-在Windows下需要使用MSYS/Cygwin的终端,在Linux下需要使用终端。
+在Windows下需要使用MSYS的Mingw32/mingw64终端,在Linux下需要使用终端。
 
 - 进入源代码目录，创建构建目录并进入。
 
@@ -34,16 +35,27 @@ cmake -DBUILD_FLASH_2M=ON ../
 
 
 
-- 根据上一步生成的工程文件使用对应工具（如make）执行编译
+- 根据上一步生成的工程文件使用对应工具（如make）执行编译。
 
 ```bash
-#windows或者MSYS2下执行make
+#Linux下执行make
 make
 #MINGW32/MINGW64下执行mingw32-make
 mingw32-make
 ```
 
 编译完成即可在构建目录得到镜像文件。
+
+- 在生成工程文件未禁止使用Kconfig(-DUSE_KCONFIG=OFF)时，可使用menuconfig目标进行Kconfig配置。
+
+```bash
+#Linux下执行make
+make menuconfig
+#MINGW32/MINGW64下执行mingw32-make
+mingw32-make menuconfig
+```
+
+
 
 ## 烧录
 
@@ -56,7 +68,10 @@ export WM_PORT=实际串口
 如设置成功,则编译完成后可执行以下烧录命令(Linux下可能要使用sudo):
 
 ```bash
+#Linux下执行make
 make flash
+#MINGW32/MINGW64下执行mingw32-make
+mingw32-make flash
 ```
 
 烧录过程中需要手动重启硬件两次，根据烧录程序的提示操作。
