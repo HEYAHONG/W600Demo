@@ -477,6 +477,55 @@ list(APPEND  MAIN_INCLUDE_DIRS  ${SDK_INCLUDE_DIRS})
 #添加定义
 add_definitions(" -DWM_W600=1 -D_IN_ADDR_T_DECLARED -D__MACHINE_ENDIAN_H__ -D_TIMEVAL_DEFINED -D__INSIDE_CYGWIN_NET__")
 
+#Kconfig(使用Kconfig进行配置)
+option(USE_KCONFIG "use kconfig" ON)
+
+if(${USE_KCONFIG})
+
+    add_definitions(" -DUSE_KCONFIG=1 ")
+
+    find_program(PYTHON
+               NAMES python3 python python2
+               REQUIRED
+               )
+    message("python path: ${PYTHON}")
+    #安装依赖
+    execute_process(COMMAND ${PYTHON} -m pip install -r  ${CMAKE_CURRENT_SOURCE_DIR}/requirement.txt
+                      RESULT_VARIABLE PYTHON_INSTALL_RESULT)
+    if(PYTHON_INSTALL_RESULT EQUAL 0)
+    message("install from requirement.txt success")
+    else()
+    message(FATAL_ERROR "install from requirement.txt error")
+    endif()
+
+    #生成config.h
+    add_custom_command(OUTPUT config.h
+                    COMMAND ${PYTHON} -m genconfig --header-path config.h
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                    )
+
+
+    if(CMAKE_HOST_WIN32)
+        #menuconfig 目标(windows)
+        add_custom_target(menuconfig cmd.exe /C start cmd.exe /c ${PYTHON} -m menuconfig
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  USES_TERMINAL
+                  )
+    else()
+        #menuconfig 目标(非windows)
+        add_custom_target(menuconfig  ${PYTHON} -m menuconfig
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  USES_TERMINAL
+                  )
+    endif()
+
+    #将config.h添加至MAIN_SRCS
+    list(APPEND MAIN_SRCS
+         config.h )
+
+
+endif()
+
 #设置头文件
 include_directories(${MAIN_INCLUDE_DIRS})
 
@@ -538,3 +587,6 @@ add_custom_target(flash
                     COMMAND ${WM_TOOL} -c $ENV{WM_PORT} -eo all -dl ${PROJECT_NAME}.fls
                     DEPENDS ${PROJECT_NAME}.fls
                     )
+
+
+
