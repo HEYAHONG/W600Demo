@@ -6,6 +6,7 @@ list(APPEND MAIN_SRCS
 main.c
 cpp.cpp
 cpp.c
+wifinetwork.c
 )
 
 #设置头文件

@@ -1,14 +1,8 @@
 #include "wm_include.h"
 #include "stdbool.h"
 #include "appconfig.h"
-#include "FreeRTOS.h"
-#include "task.h"
+#include "wifinetwork.h"
 
-
-#ifndef pdMS_TO_TICKS
-#include "FreeRTOS.h"
-#define pdMS_TO_TICKS(x) ((x)/((1000/configTICK_RATE_HZ)))
-#endif // pdMS_TO_TICKS
 
 extern unsigned int USER_ADDR_START;
 extern unsigned int USER_AREA_LEN;
@@ -20,6 +14,11 @@ static uint32_t main_task_stack[1024];
 static void main_task(void *arg)
 {
 
+#if CONFIG_WIFI_NETWORK == 1
+    //≥ı ºªØWIFINetwork
+    wifinetwork_init();
+#endif // CONFIG_WIFI_NETWORK
+
     printf("%s:user flash start=%08X length=%u,ex user flash start=%08X length=%u\r\n",TAG,USER_ADDR_START,USER_AREA_LEN,EX_USER_ADDR_START,EX_USER_AREA_LEN);
 
     while(true)
@@ -28,7 +27,7 @@ static void main_task(void *arg)
         printf("%s:main task running\r\ntick=%lu\r\n",TAG,xTaskGetTickCount());
 
         tls_os_disp_task_stat_info();
-        vTaskDelay((pdMS_TO_TICKS(5000)));
+        vTaskDelay((pdMS_TO_TICKS(20000)));
     }
 }
 
