@@ -1,6 +1,6 @@
-
-#include "wifinetwork.h"
 #include "wm_include.h"
+#include "wifinetwork.h"
+#include "string.h"
 #include "lwip/netif.h"
 #include "wm_netif.h"
 
@@ -132,7 +132,7 @@ static int create_soft_ap(char *apssid, char *appwd)
     memset(&apinfo, 0, sizeof(apinfo));
     memset(&ipinfo, 0, sizeof(ipinfo));
 
-    u8 *ssid = CONFIG_WIFI_NETWORK_AP_SSID;
+    u8 *ssid =(u8 *) CONFIG_WIFI_NETWORK_AP_SSID;
     u8 ssid_len = strlen(CONFIG_WIFI_NETWORK_AP_SSID);
 
     if (apssid)
