@@ -30,7 +30,7 @@ static wifinetwork_cfg_t config=
 #endif // CONFIG_WIFI_NETWORK
 
 
-static wifinetwork_status_t wifinet_status={0};
+static wifinetwork_status_t wifinet_status= {0};
 
 static void apsta_client_event(u8 *mac, enum tls_wifi_client_event_type event)
 {
@@ -52,17 +52,6 @@ static void con_net_status_changed_event(u8 status )
     wifinet_status.stanetif=nf;
     wifinet_status.apnetif=nf->next;
 
-    {
-        struct netif *tmp=nf;
-        while(tmp!=NULL)
-        {
-            printf("%s:netif name:%c%c%u\r\n",TAG,tmp->name[0],tmp->name[1],tmp->num);
-            print_ipaddr(&tmp->ip_addr);
-            print_ipaddr(&tmp->gw);
-            print_ipaddr(&tmp->netmask);
-            tmp=tmp->next;
-        }
-    };
     switch(status)
     {
     case NETIF_WIFI_JOIN_SUCCESS:
@@ -90,6 +79,17 @@ static void con_net_status_changed_event(u8 status )
     {
         wifinet_status.is_sta_ip_ok=1;
         printf("%s:NETIF_IP_NET_UP\n",TAG);
+        {
+            struct netif *tmp=nf;
+            while(tmp!=NULL)
+            {
+                printf("%s:netif name:%c%c%u\r\n",TAG,tmp->name[0],tmp->name[1],tmp->num);
+                print_ipaddr(&tmp->ip_addr);
+                print_ipaddr(&tmp->gw);
+                print_ipaddr(&tmp->netmask);
+                tmp=tmp->next;
+            }
+        }
     }
     break;
     case NETIF_WIFI_SOFTAP_SUCCESS:
@@ -115,7 +115,18 @@ static void con_net_status_changed_event(u8 status )
     case NETIF_IP_NET2_UP:
     {
         wifinet_status.is_ap_running=1;
-        wm_printf("%s:softap ip: %v\n",TAG,nf->next->ip_addr.addr);
+        wm_printf("%s:softap ok\n",TAG);
+        {
+            struct netif *tmp=nf;
+            while(tmp!=NULL)
+            {
+                printf("%s:netif name:%c%c%u\r\n",TAG,tmp->name[0],tmp->name[1],tmp->num);
+                print_ipaddr(&tmp->ip_addr);
+                print_ipaddr(&tmp->gw);
+                print_ipaddr(&tmp->netmask);
+                tmp=tmp->next;
+            }
+        };
     }
     break;
     default:
