@@ -29,53 +29,92 @@ static wifinetwork_cfg_t config=
     };
 #endif // CONFIG_WIFI_NETWORK
 
+
+static wifinetwork_status_t wifinet_status={0};
+
 static void apsta_client_event(u8 *mac, enum tls_wifi_client_event_type event)
 {
+    if(event== WM_WIFI_CLIENT_EVENT_ONLINE)
+    {
+        wifinet_status.softap_sta_num++;
+    }
+    else
+    {
+        wifinet_status.softap_sta_num--;
+    }
     wm_printf("client %M is %s\r\n", mac, event ? "offline" : "online");
 }
 
 static void con_net_status_changed_event(u8 status )
 {
     struct netif *nf = tls_get_netif();
+
+    wifinet_status.stanetif=nf;
+    wifinet_status.apnetif=nf->next;
+
+    {
+        struct netif *tmp=nf;
+        while(tmp!=NULL)
+        {
+            printf("%s:netif name:%c%c%u\r\n",TAG,tmp->name[0],tmp->name[1],tmp->num);
+            print_ipaddr(&tmp->ip_addr);
+            print_ipaddr(&tmp->gw);
+            print_ipaddr(&tmp->netmask);
+            tmp=tmp->next;
+        }
+    };
     switch(status)
     {
     case NETIF_WIFI_JOIN_SUCCESS:
+    {
         printf("%s:NETIF_WIFI_JOIN_SUCCESS\n",TAG);
-        break;
+        wifinet_status.status=0;
+        wifinet_status.is_enable=1;
+        wifinet_status.is_ap=0;
+        wifinet_status.is_connect_ap=1;
+    }
+    break;
     case NETIF_WIFI_JOIN_FAILED:
+    {
         printf("%s:NETIF_WIFI_JOIN_FAILED\n",TAG);
-        break;
+        wifinet_status.status=0;
+    }
+    break;
     case NETIF_WIFI_DISCONNECTED:
+    {
         printf("%s:NETIF_WIFI_DISCONNECTED\n",TAG);
-        break;
+        wifinet_status.status=0;
+    }
+    break;
     case NETIF_IP_NET_UP:
     {
-        struct tls_ethif *tmpethif = tls_netif_get_ethif();
-        print_ipaddr(&tmpethif->ip_addr);
-#if TLS_CONFIG_IPV6
-        print_ipaddr(&tmpethif->ip6_addr[0]);
-        print_ipaddr(&tmpethif->ip6_addr[1]);
-        print_ipaddr(&tmpethif->ip6_addr[2]);
-#endif
+        wifinet_status.is_sta_ip_ok=1;
+        printf("%s:NETIF_IP_NET_UP\n",TAG);
     }
     break;
     case NETIF_WIFI_SOFTAP_SUCCESS:
     {
         wm_printf("%s:softap create success\n",TAG);
+        wifinet_status.status=0;
+        wifinet_status.is_enable=1;
+        wifinet_status.is_ap=1;
     }
     break;
     case NETIF_WIFI_SOFTAP_FAILED:
     {
         wm_printf("%s:softap create failed\n",TAG);
+        wifinet_status.status=0;
     }
     break;
     case NETIF_WIFI_SOFTAP_CLOSED:
     {
         wm_printf("%s:softap closed\n",TAG);
+        wifinet_status.status=0;
     }
     break;
     case NETIF_IP_NET2_UP:
     {
+        wifinet_status.is_ap_running=1;
         wm_printf("%s:softap ip: %v\n",TAG,nf->next->ip_addr.addr);
     }
     break;
@@ -199,6 +238,16 @@ void wifinetwork_init()
 void wifinetwork_set_config(wifinetwork_cfg_t cfg)
 {
     config=cfg;
+}
+
+wifinetwork_cfg_t wifinetwork_get_config()
+{
+    return config;
+}
+
+wifinetwork_status_t wifinetwork_get_status()
+{
+    return wifinet_status;
 }
 
 void wifinetwork_deinit()
