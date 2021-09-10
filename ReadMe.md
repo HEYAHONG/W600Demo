@@ -12,6 +12,8 @@
 - make :执行编译，也可使用其它工具。
 - python:执行脚本，可能需要手动安装pip。
 
+某些系统的运行环境配置见 doc/environment.md
+
 ## 步骤
 
 在Windows下需要使用MSYS的Mingw32/mingw64终端,在Linux下需要使用终端。
