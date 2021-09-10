@@ -12,7 +12,7 @@
 - make :执行编译，也可使用其它工具。
 - python:执行脚本，可能需要手动安装pip。
 
-某些系统的运行环境配置见 [doc/environment.md](doc/environment.md)
+某些系统的运行环境配置见  [doc/environment.md](doc/environment.md)
 
 ## 步骤
 
