@@ -9,7 +9,7 @@
 - gcc:用于编译wm_tool,windows平台不需要。
 - arm-none-eabi-gcc :工具链，C运行库为newlib，windows平台下需使用MSYS2 Mingw32/Mingw64下的arm-none-eabi-gcc。
 - cmake :生成工程文件。
-- make :执行编译，也可使用其它工具。
+- make :执行编译，也可使用其它工具(如ninja)。
 - python:执行脚本，可能需要手动安装pip。
 
 某些系统的运行环境配置见  [doc/environment.md](doc/environment.md)
