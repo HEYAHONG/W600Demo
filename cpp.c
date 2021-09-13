@@ -10,3 +10,10 @@ void cpp_free(void *p)
 {
     return tls_mem_free(p);
 }
+
+
+void cpp_abort()
+{
+    //复位
+    NVIC_SystemReset();
+}

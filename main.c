@@ -1,6 +1,7 @@
 ﻿#include "wm_include.h"
 #include "stdbool.h"
 #include "appconfig.h"
+#include "app.h"
 #include "wifinetwork.h"
 
 
@@ -19,15 +20,16 @@ static void main_task(void *arg)
     wifinetwork_init();
 #endif // CONFIG_WIFI_NETWORK
 
+    app_init();
+
     printf("%s:user flash start=%08X length=%u,ex user flash start=%08X length=%u\r\n",TAG,USER_ADDR_START,USER_AREA_LEN,EX_USER_ADDR_START,EX_USER_AREA_LEN);
+    printf("%s:free memory %d bytes\r\n",TAG,tls_mem_get_avail_heapsize());
+    printf("%s:main task running\r\ntick=%lu\r\n",TAG,xTaskGetTickCount());
+
 
     while(true)
     {
-        printf("%s:free memory %d bytes\r\n",TAG,tls_mem_get_avail_heapsize());
-        printf("%s:main task running\r\ntick=%lu\r\n",TAG,xTaskGetTickCount());
-
-        tls_os_disp_task_stat_info();
-        vTaskDelay((pdMS_TO_TICKS(20000)));
+        app_loop();
     }
 }
 

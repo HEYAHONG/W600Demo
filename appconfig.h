@@ -20,6 +20,11 @@
 #define CONFIG_CPP_OP_DELETE_DEBUG 0
 #endif // CONFIG_CPP_OP_DELETE_DEBUG
 
+#ifndef CONFIG_CPP_RESET_ON_EXCEPTION
+#define CONFIG_CPP_RESET_ON_EXCEPTION 1
+#endif // CONFIG_CPP_RESET_ON_EXCEPTION
+
+
 #ifndef CONFIG_WIFI_NETWORK
 #define CONFIG_WIFI_NETWORK 0
 #endif // CONFIG_WIFI_NETWORK
@@ -65,5 +70,9 @@
 #include "FreeRTOS.h"
 #define pdMS_TO_TICKS(x) ((x)/((1000/configTICK_RATE_HZ)))
 #endif // pdMS_TO_TICKS
+
+#ifndef TickType_t
+#define TickType_t portTickType
+#endif // TickType_t
 
 #endif // APPCONFIG_H_INCLUDED

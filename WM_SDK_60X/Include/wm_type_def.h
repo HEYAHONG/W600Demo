@@ -53,7 +53,10 @@ typedef unsigned char INT8U;
 #endif
 typedef signed char INT8S;
 
+#ifndef __cplusplus
 typedef unsigned char        bool;
+#endif // __cplusplus
+
 typedef unsigned char        u8;
 typedef signed char          s8;
 typedef unsigned short       u16;

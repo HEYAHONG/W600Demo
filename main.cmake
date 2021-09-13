@@ -7,9 +7,12 @@ main.c
 cpp.cpp
 cpp.c
 wifinetwork.c
+appstack/SocketTcpClient.cpp
+appstack/app.cpp
 )
 
 #设置头文件
 list(APPEND MAIN_INCLUDE_DIRS
 ./
+appstack
 )
