@@ -14,9 +14,9 @@ extern "C"
 #include "FreeRTOS.h"
 #include "task.h"
 
-extern void * cpp_malloc(size_t nsize);
-extern void cpp_free(void *p);
-extern void cpp_abort();
+    extern void * cpp_malloc(size_t nsize);
+    extern void cpp_free(void *p);
+    extern void cpp_abort();
 
 }
 

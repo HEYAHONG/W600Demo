@@ -249,6 +249,8 @@ void SocketTcpClient::stop()//停止
 void SocketTcpClient::socket_loop()
 {
     struct sockaddr_in addr;
+    fd_set write_fds;
+    struct timeval select_timeout= {0,5};
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_port=htons(port);
@@ -316,21 +318,16 @@ void SocketTcpClient::socket_loop()
             }
 
             {
-                int ret=0;
+                FD_ZERO(&write_fds);
+                FD_SET(socketid,&write_fds);
+                select_timeout.tv_sec=0;
+                select_timeout.tv_usec=5;
+                int ret=select(socketid+1,NULL,&write_fds,NULL,&select_timeout);
+                if(ret<0)
                 {
-                    //尝试调用socket API获取错误码
-                    struct sockaddr peeraddr;
-                    memset(&peeraddr,0,sizeof(peeraddr));
-                    size_t len=0;
-                    ret=getpeername(socketid,&peeraddr,&len);
-                }
-
-                if(ret!=0)
-                {
-                    printf("%s:getpeername failed!close socket!\r\n",TAG);
+                    printf("%s:socket %d select error !! close socket!!\e\n",TAG,socketid);
                     break;
                 }
-
             }
         }
 

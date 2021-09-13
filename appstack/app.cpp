@@ -20,7 +20,7 @@ extern "C"
     //成功连接后循环内回调函数(只能进行发送与接收操作),不可长时间阻塞
     bool onloop(const struct __sockettcpclient_cfg_t *cfg,int socketfd)//返回false重启socket
     {
-        char buff[128]={0};
+        char buff[128]= {0};
         int len=recv(socketfd,buff,sizeof(buff)-1,0);
         if(len>0)
         {
@@ -40,7 +40,7 @@ extern "C"
 void app_init()
 {
     client=new SocketTcpClient();
-    sockettcpclient_cfg_t cfg={0};
+    sockettcpclient_cfg_t cfg= {0};
     cfg.before_connect=before_connect;
     cfg.before_close=before_close;
     cfg.after_connect=after_connect;

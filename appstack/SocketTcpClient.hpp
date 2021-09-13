@@ -40,46 +40,46 @@ typedef struct __sockettcpclient_cfg_t
 
 class SocketTcpClient
 {
-    public:
-        SocketTcpClient();
-        virtual ~SocketTcpClient();
-        SocketTcpClient(const SocketTcpClient& other);
+public:
+    SocketTcpClient();
+    virtual ~SocketTcpClient();
+    SocketTcpClient(const SocketTcpClient& other);
 
-        SocketTcpClient & operator = (const SocketTcpClient& other);
+    SocketTcpClient & operator = (const SocketTcpClient& other);
 
-        void setconfig(sockettcpclient_cfg_t _cfg);
+    void setconfig(sockettcpclient_cfg_t _cfg);
 
-        bool start();//以已有的参数启动
-        bool start(const char * hostname,uint16_t port);//启动
+    bool start();//以已有的参数启动
+    bool start(const char * hostname,uint16_t port);//启动
 
-        void stop();//停止
+    void stop();//停止
 
-    protected:
-        void __start_task();
+protected:
+    void __start_task();
 
-        static void __task_entry(void *arg);
+    static void __task_entry(void *arg);
 
-        bool __is_task_running();
+    bool __is_task_running();
 
-        void __stop_task();
+    void __stop_task();
 
-    private:
+private:
+    struct
+    {
+        sockettcpclient_cfg_t cfg;
+        tls_os_task_t taskhandle;
+        void *taskstack;
         struct
         {
-            sockettcpclient_cfg_t cfg;
-            tls_os_task_t taskhandle;
-            void *taskstack;
-            struct
-            {
-                uint32_t is_pending_stop:1;//是否准备停止
-                uint32_t is_waiting_delete:1;//受否等待栓除
-            } task_flag;
-        } context;
+            uint32_t is_pending_stop:1;//是否准备停止
+            uint32_t is_waiting_delete:1;//受否等待栓除
+        } task_flag;
+    } context;
 
-        char * hostname;
-        uint16_t    port;
+    char * hostname;
+    uint16_t    port;
 
-        void socket_loop();
+    void socket_loop();
 
 };
 
