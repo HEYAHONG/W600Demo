@@ -1,4 +1,4 @@
-#include "wm_include.h"
+Ôªø#include "wm_include.h"
 #include "stdbool.h"
 #include "appconfig.h"
 #include "wifinetwork.h"
@@ -15,7 +15,7 @@ static void main_task(void *arg)
 {
 
 #if CONFIG_WIFI_NETWORK == 1
-    //≥ı ºªØWIFINetwork
+    //ÂàùÂßãÂåñWIFINetwork
     wifinetwork_init();
 #endif // CONFIG_WIFI_NETWORK
 

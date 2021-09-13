@@ -1,4 +1,4 @@
-#ifndef WIFINETWORK_H_INCLUDED
+ï»¿#ifndef WIFINETWORK_H_INCLUDED
 #define WIFINETWORK_H_INCLUDED
 
 #include "appconfig.h"
@@ -14,7 +14,7 @@ extern "C"
 
 typedef struct
 {
-    bool isap;//ÊÇ·ñÎªAP
+    bool isap;//æ˜¯å¦ä¸ºAP
     char ssid[33];
     char password[65];
     int  channel;
@@ -27,22 +27,22 @@ typedef struct
     {
         struct
         {
-            uint32_t is_enable:1;//ÊÇ·ñÕı³£Æô¶¯
-            uint32_t is_ap:1;//ÊÇ·ñÎªapÄ£Ê½
+            uint32_t is_enable:1;//æ˜¯å¦æ­£å¸¸å¯åŠ¨
+            uint32_t is_ap:1;//æ˜¯å¦ä¸ºapæ¨¡å¼
 
-            uint32_t is_connect_ap:1;//ÊÇ·ñÁ¬½ÓÂ·ÓÉÆ÷
-            uint32_t is_sta_ip_ok:1;//¿Í»§¶ËÄ£Ê½ÊÇ·ñ·ÖÅäµ½ipµØÖ·
+            uint32_t is_connect_ap:1;//æ˜¯å¦è¿æ¥è·¯ç”±å™¨
+            uint32_t is_sta_ip_ok:1;//å®¢æˆ·ç«¯æ¨¡å¼æ˜¯å¦åˆ†é…åˆ°ipåœ°å€
 
-            uint32_t is_ap_running:1;//ÊÇ·ñ³É¹¦´ò¿ªAP
-            uint32_t softap_sta_num:8;//APÄ£Ê½µÄ¿Í»§¶ËÊıÁ¿
+            uint32_t is_ap_running:1;//æ˜¯å¦æˆåŠŸæ‰“å¼€AP
+            uint32_t softap_sta_num:8;//APæ¨¡å¼çš„å®¢æˆ·ç«¯æ•°é‡
         };
         uint32_t status;
     };
-    const struct netif *stanetif;//¿Í»§¶ËÄ£Ê½ÏÂµÄÍø¿¨Ö¸Õë,ÓÃÓÚ¶ÁÈ¡IPµØÖ·µÈ¡£¿ÉÎªNULL¡£
-    const struct netif *apnetif;//APÄ£Ê½ÏÂµÄÍø¿¨Ö¸Õë,ÓÃÓÚ¶ÁÈ¡IPµØÖ·µÈ¡£¿ÉÎªNULL¡£
+    const struct netif *stanetif;//å®¢æˆ·ç«¯æ¨¡å¼ä¸‹çš„ç½‘å¡æŒ‡é’ˆ,ç”¨äºè¯»å–IPåœ°å€ç­‰ã€‚å¯ä¸ºNULLã€‚
+    const struct netif *apnetif;//APæ¨¡å¼ä¸‹çš„ç½‘å¡æŒ‡é’ˆ,ç”¨äºè¯»å–IPåœ°å€ç­‰ã€‚å¯ä¸ºNULLã€‚
 } wifinetwork_status_t;
 
-//³õÊ¼»¯wifinetwork
+//åˆå§‹åŒ–wifinetwork
 void wifinetwork_init();
 
 void wifinetwork_set_config(wifinetwork_cfg_t cfg);
@@ -51,7 +51,7 @@ wifinetwork_cfg_t wifinetwork_get_config();
 
 wifinetwork_status_t wifinetwork_get_status();
 
-//·´³õÊ¼»¯wifinetwork
+//ååˆå§‹åŒ–wifinetwork
 void wifinetwork_deinit();
 
 #ifdef __cplusplus
