@@ -1,4 +1,4 @@
-#include "SocketTcpClient.hpp"
+ï»¿#include "SocketTcpClient.hpp"
 #include "appconfig.h"
 #include "lwip/errno.h"
 #include "errno.h"
@@ -101,7 +101,7 @@ void SocketTcpClient::__start_task()
         return;
     }
 
-    //¼ì²é²ÎÊı
+    //æ£€æŸ¥å‚æ•°
     if(context.cfg.task_priority==0)
     {
         context.cfg.task_priority=1;
@@ -111,14 +111,14 @@ void SocketTcpClient::__start_task()
         context.cfg.task_stack_size=2048;
     }
 
-    //¼ì²éÍøÖ·
+    //æ£€æŸ¥ç½‘å€
     if(hostname==NULL || port==0)
     {
         xTaskResumeAll();
         return;
     }
 
-    //¼ì²é±ØÒªµÄ»Øµ÷º¯Êı
+    //æ£€æŸ¥å¿…è¦çš„å›è°ƒå‡½æ•°
     if(context.cfg.onloop==NULL)
     {
         xTaskResumeAll();
@@ -126,7 +126,7 @@ void SocketTcpClient::__start_task()
     }
 
 
-    //´´½¨ÈÎÎñÕ»
+    //åˆ›å»ºä»»åŠ¡æ ˆ
     if(context.taskstack==NULL)
     {
         context.taskstack=tls_mem_alloc(context.cfg.task_stack_size);
@@ -175,7 +175,7 @@ void SocketTcpClient::__stop_task()
     if(context.task_flag.is_pending_stop)
     {
         xTaskResumeAll();
-        return;//ÒÑ¾­×¼±¸É¾³ı
+        return;//å·²ç»å‡†å¤‡åˆ é™¤
     }
 
     context.task_flag.is_pending_stop=1;
@@ -206,7 +206,7 @@ void SocketTcpClient::setconfig(sockettcpclient_cfg_t _cfg)
     context.cfg=_cfg;
 }
 
-bool SocketTcpClient::start()//ÒÔÒÑÓĞµÄ²ÎÊıÆô¶¯
+bool SocketTcpClient::start()//ä»¥å·²æœ‰çš„å‚æ•°å¯åŠ¨
 {
     if(hostname==NULL || port ==0)
     {
@@ -217,7 +217,7 @@ bool SocketTcpClient::start()//ÒÔÒÑÓĞµÄ²ÎÊıÆô¶¯
 
     return true;
 }
-bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//Æô¶¯
+bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//å¯åŠ¨
 {
     if(_hostname==NULL || _port ==0)
     {
@@ -241,7 +241,7 @@ bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//Æô¶¯
 
 }
 
-void SocketTcpClient::stop()//Í£Ö¹
+void SocketTcpClient::stop()//åœæ­¢
 {
     __stop_task();
 }
@@ -256,7 +256,7 @@ void SocketTcpClient::socket_loop()
     addr.sin_port=htons(port);
 
     {
-        //Í¨¹ıhostname»ñÈ¡ipµØÖ·
+        //é€šè¿‡hostnameè·å–ipåœ°å€
         struct hostent *p=gethostbyname(hostname);
         if(p!=NULL)
         {
@@ -289,13 +289,13 @@ void SocketTcpClient::socket_loop()
     if(connect(socketid,(struct sockaddr *)&addr,sizeof(struct sockaddr))==0)
     {
         {
-            //ÉèÖÃ½ÓÊÕ³¬Ê±Îª5(·ÀÖ¹½ÓÊÕ×èÈû)
+            //è®¾ç½®æ¥æ”¶è¶…æ—¶ä¸º5(é˜²æ­¢æ¥æ”¶é˜»å¡)
             int timeout=5;
             setsockopt(socketid,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));
         }
 
         {
-            //ÉèÖÃkeepalive
+            //è®¾ç½®keepalive
             int keepalive=60000;
             setsockopt(socketid,IPPROTO_TCP,TCP_KEEPALIVE,&keepalive,sizeof(int));
         }
