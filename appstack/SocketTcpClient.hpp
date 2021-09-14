@@ -52,6 +52,8 @@ public:
     bool start();//以已有的参数启动
     bool start(const char * hostname,uint16_t port);//启动
 
+    bool is_running();//是否正在运行
+
     void stop();//停止
 
 protected:

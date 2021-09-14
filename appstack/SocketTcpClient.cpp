@@ -241,6 +241,11 @@ bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//启动
 
 }
 
+bool SocketTcpClient::is_running()//是否正在运行
+{
+    return __is_task_running();
+}
+
 void SocketTcpClient::stop()//停止
 {
     __stop_task();
@@ -295,9 +300,27 @@ void SocketTcpClient::socket_loop()
         }
 
         {
-            //设置keepalive
-            int keepalive=60000;
-            setsockopt(socketid,IPPROTO_TCP,TCP_KEEPALIVE,&keepalive,sizeof(int));
+            //启用keepalive
+            {
+                int keepalive=1;
+                setsockopt(socketid,IPPROTO_TCP,TCP_KEEPALIVE,&keepalive,sizeof(int));
+            }
+            //设置keepidle为60s
+            {
+                int keepidle=60;
+                setsockopt(socketid,IPPROTO_TCP,TCP_KEEPIDLE,&keepidle,sizeof(int));
+            }
+            //设置探测间隔为5s
+            {
+                int keepintvl=5;
+                setsockopt(socketid,IPPROTO_TCP,TCP_KEEPINTVL,&keepintvl,sizeof(int));
+            }
+            //重试次数为4次
+            {
+                int keepcnt=4;
+                setsockopt(socketid,IPPROTO_TCP,TCP_KEEPCNT,&keepcnt,sizeof(int));
+            }
+
         }
 
         if(context.cfg.after_connect!=NULL)
