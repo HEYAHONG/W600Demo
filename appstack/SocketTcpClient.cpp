@@ -277,7 +277,7 @@ void SocketTcpClient::socket_loop()
 
     int socketid=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-    if(socketid<=0)
+    if(socketid<0)
     {
         vTaskDelay(pdMS_TO_TICKS(2000));
         return;
