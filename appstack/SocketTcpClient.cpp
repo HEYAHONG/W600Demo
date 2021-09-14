@@ -366,7 +366,7 @@ void SocketTcpClient::socket_loop()
         context.cfg.before_close(&context.cfg,socketid);
     }
 
-    if(socketid>0)
+    if(socketid>=0)
     {
         closesocket(socketid);
     }
