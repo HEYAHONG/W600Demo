@@ -18,3 +18,9 @@ source "wifinetwork.Kconfig"
 
 endif
 	
+
+menu "Protocol"
+
+source "ntp.Kconfig"
+
+endmenu

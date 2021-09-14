@@ -3,6 +3,7 @@
 #include "appconfig.h"
 #include "app.h"
 #include "wifinetwork.h"
+#include "ntp.h"
 
 
 extern unsigned int USER_ADDR_START;
@@ -20,6 +21,10 @@ static void main_task(void *arg)
     wifinetwork_init();
 #endif // CONFIG_WIFI_NETWORK
 
+#if CONFIG_PROTOCOL_NTP == 1
+    ntp_init();
+#endif // CONFIG_PROTOCOL_NTP
+
     app_init();
 
     printf("%s:user flash start=%08X length=%u,ex user flash start=%08X length=%u\r\n",TAG,USER_ADDR_START,USER_AREA_LEN,EX_USER_ADDR_START,EX_USER_AREA_LEN);
@@ -30,6 +35,9 @@ static void main_task(void *arg)
     while(true)
     {
         app_loop();
+#if CONFIG_PROTOCOL_NTP == 1
+        ntp_loop();
+#endif // CONFIG_PROTOCOL_NTP
     }
 }
 
