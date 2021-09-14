@@ -1,4 +1,4 @@
-ï»¿#include "SocketTcpClient.hpp"
+#include "SocketTcpClient.hpp"
 #include "appconfig.h"
 #include "lwip/errno.h"
 #include "errno.h"
@@ -101,7 +101,7 @@ void SocketTcpClient::__start_task()
         return;
     }
 
-    //æ£€æŸ¥å‚æ•°
+    //¼ì²é²ÎÊı
     if(context.cfg.task_priority==0)
     {
         context.cfg.task_priority=1;
@@ -111,14 +111,14 @@ void SocketTcpClient::__start_task()
         context.cfg.task_stack_size=2048;
     }
 
-    //æ£€æŸ¥ç½‘å€
+    //¼ì²éÍøÖ·
     if(hostname==NULL || port==0)
     {
         xTaskResumeAll();
         return;
     }
 
-    //æ£€æŸ¥å¿…è¦çš„å›è°ƒå‡½æ•°
+    //¼ì²é±ØÒªµÄ»Øµ÷º¯Êı
     if(context.cfg.onloop==NULL)
     {
         xTaskResumeAll();
@@ -126,7 +126,7 @@ void SocketTcpClient::__start_task()
     }
 
 
-    //åˆ›å»ºä»»åŠ¡æ ˆ
+    //´´½¨ÈÎÎñÕ»
     if(context.taskstack==NULL)
     {
         context.taskstack=tls_mem_alloc(context.cfg.task_stack_size);
@@ -175,7 +175,7 @@ void SocketTcpClient::__stop_task()
     if(context.task_flag.is_pending_stop)
     {
         xTaskResumeAll();
-        return;//å·²ç»å‡†å¤‡åˆ é™¤
+        return;//ÒÑ¾­×¼±¸É¾³ı
     }
 
     context.task_flag.is_pending_stop=1;
@@ -206,7 +206,7 @@ void SocketTcpClient::setconfig(sockettcpclient_cfg_t _cfg)
     context.cfg=_cfg;
 }
 
-bool SocketTcpClient::start()//ä»¥å·²æœ‰çš„å‚æ•°å¯åŠ¨
+bool SocketTcpClient::start()//ÒÔÒÑÓĞµÄ²ÎÊıÆô¶¯
 {
     if(hostname==NULL || port ==0)
     {
@@ -217,7 +217,7 @@ bool SocketTcpClient::start()//ä»¥å·²æœ‰çš„å‚æ•°å¯åŠ¨
 
     return true;
 }
-bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//å¯åŠ¨
+bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//Æô¶¯
 {
     if(_hostname==NULL || _port ==0)
     {
@@ -241,7 +241,7 @@ bool SocketTcpClient::start(const char * _hostname,uint16_t _port)//å¯åŠ¨
 
 }
 
-void SocketTcpClient::stop()//åœæ­¢
+void SocketTcpClient::stop()//Í£Ö¹
 {
     __stop_task();
 }
@@ -249,14 +249,14 @@ void SocketTcpClient::stop()//åœæ­¢
 void SocketTcpClient::socket_loop()
 {
     struct sockaddr_in addr;
-    fd_set write_fds;
-    struct timeval select_timeout= {0,5};
+    fd_set read_fds;
+    struct timeval select_timeout= {0,0};
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_port=htons(port);
 
     {
-        //é€šè¿‡hostnameè·å–ipåœ°å€
+        //Í¨¹ıhostname»ñÈ¡ipµØÖ·
         struct hostent *p=gethostbyname(hostname);
         if(p!=NULL)
         {
@@ -289,13 +289,13 @@ void SocketTcpClient::socket_loop()
     if(connect(socketid,(struct sockaddr *)&addr,sizeof(struct sockaddr))==0)
     {
         {
-            //è®¾ç½®æ¥æ”¶è¶…æ—¶ä¸º5(é˜²æ­¢æ¥æ”¶é˜»å¡)
+            //ÉèÖÃ½ÓÊÕ³¬Ê±Îª5(·ÀÖ¹½ÓÊÕ×èÈû)
             int timeout=5;
             setsockopt(socketid,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));
         }
 
         {
-            //è®¾ç½®keepalive
+            //ÉèÖÃkeepalive
             int keepalive=60000;
             setsockopt(socketid,IPPROTO_TCP,TCP_KEEPALIVE,&keepalive,sizeof(int));
         }
@@ -318,17 +318,18 @@ void SocketTcpClient::socket_loop()
             }
 
             {
-                FD_ZERO(&write_fds);
-                FD_SET(socketid,&write_fds);
+                FD_ZERO(&read_fds);
+                FD_SET(socketid,&read_fds);
                 select_timeout.tv_sec=0;
-                select_timeout.tv_usec=5;
-                int ret=select(socketid+1,NULL,&write_fds,NULL,&select_timeout);
-                if(ret<0)
+                select_timeout.tv_usec=0;
+                int ret=select(socketid+1,&read_fds,NULL,NULL,&select_timeout);
+                if(ret!=0)
                 {
-                    printf("%s:socket %d select error !! close socket!!\e\n",TAG,socketid);
+                    printf("%s:socket %d select error !! close socket!!\r\n",TAG,socketid);
                     break;
                 }
             }
+            vTaskDelay(1);
         }
 
     }
