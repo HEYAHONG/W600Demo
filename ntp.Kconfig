@@ -7,6 +7,10 @@ menuconfig PROTOCOL_NTP
 
 if PROTOCOL_NTP
 
+config PROTOCOL_NTP_TIMEZONE
+   string "timezone"
+   default "GMT-8"
+
 config PROTOCOL_NTP_SERVER_1_IP
     string "ntp server 1 ip"
     default "114.118.7.163"

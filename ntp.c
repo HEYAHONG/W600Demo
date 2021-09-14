@@ -2,6 +2,7 @@
 #include "time.h"
 #include "stdio.h"
 #include "wm_rtc.h"
+#include "stdlib.h"
 
 static const char *TAG="ntp";
 
@@ -18,8 +19,16 @@ CONFIG_PROTOCOL_NTP_SERVER_3_IP
 #endif // CONFIG_PROTOCOL_NTP
 };
 
+static const char *tz=CONFIG_PROTOCOL_NTP_TIMEZONE;
+
 void ntp_init()
 {
+    {
+        //设置时区
+        setenv("TZ",tz,1);
+        tzset();
+    }
+
     for(size_t i=0;i<(sizeof(ntp_server_list)/sizeof(ntp_server_list[0]));i++)
     {
         tls_ntp_set_server((char *)ntp_server_list[i],i);
@@ -42,6 +51,12 @@ static void check_time()
         localtime_r(&ntp_time_cnt,&m_tm);
         if(m_tm.tm_year>(2020-1900))
         {
+            ntp_time_cnt=tls_ntp_client();
+
+            {//由于SDK加了8小时，此处应减去8小时获得真正的时间戳
+                ntp_time_cnt-=8*3600;
+            }
+            localtime_r(&ntp_time_cnt,&m_tm);
             //时间有效
             printf("%s:time %d/%d/%d %d:%d:%d\r\n",TAG,m_tm.tm_year+1900,m_tm.tm_mon+1,m_tm.tm_mday,m_tm.tm_hour,m_tm.tm_min,m_tm.tm_sec);
             tls_set_rtc(&m_tm);
