@@ -44,7 +44,7 @@
 #define UBaseType_t portBASE_TYPE
 #endif // UBaseType_t
 #ifndef portTICK_PERIOD_MS
-#define portTICK_PERIOD_MS ((double)configTICK_RATE_HZ/1000.0)
+#define portTICK_PERIOD_MS (1000/configTICK_RATE_HZ)
 #endif // portTICK_PERIOD_MS
 
 

@@ -55,6 +55,8 @@ void mqtt_test_task(void *arg)
 
         MQTTPacket_connectData cfg=MQTTPacket_connectData_initializer;
 
+        cfg.keepAliveInterval=0;
+
         if(SUCCESS!=MQTTConnect(&mqttclient,&cfg))
         {
             printf("%s:mqtt connect failed!!\r\n",TAG);
