@@ -1,5 +1,7 @@
 ﻿#include "app.h"
 #include "SocketTcpClient.hpp"
+#include "MQTT.hpp"
+
 
 static const char * TAG="app";
 
@@ -37,8 +39,11 @@ extern "C"
     }
 }
 
+
+uint32_t mqtt_test_task_stack[1024]={0};
 void app_init()
 {
+    /*
     client=new SocketTcpClient();
     sockettcpclient_cfg_t cfg= {0};
     cfg.before_connect=before_connect;
@@ -47,6 +52,11 @@ void app_init()
     cfg.onloop=onloop;
     client->setconfig(cfg);
     client->start("didiyun.hyhsystem.cn",3333);
+    */
+
+    //测试MQTT
+     tls_os_task_create(NULL,"mqtt_test",mqtt_test_task,NULL,(uint8_t *)mqtt_test_task_stack,sizeof(mqtt_test_task_stack),1,0);
+
 
 }
 
