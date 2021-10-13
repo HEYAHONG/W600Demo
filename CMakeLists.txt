@@ -609,3 +609,9 @@ add_custom_target(flash
 
 
 
+#run目标
+add_custom_target(run
+                   COMMAND ${WM_TOOL} -c $ENV{WM_PORT} -eo all -dl ${PROJECT_NAME}.fls -sl str -ws 115200
+                   DEPENDS ${PROJECT_NAME}.fls
+                  )
+
