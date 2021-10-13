@@ -27,7 +27,7 @@ static void mqttmessageHandler(MessageData*msg)
     memset(payload,0,msg->message->payloadlen+1);
     memcpy(payload,msg->message->payload,msg->message->payloadlen);
 
-    printf("%s:topiic:%s,data=%s,datalen=%uBytes\r\n",TAG,topic,(char *)payload,msg->message->payloadlen);
+    printf("%s:topic:%s,data=%s,datalen=%uBytes\r\n",TAG,topic,(char *)payload,msg->message->payloadlen);
     MQTTPublish(&mqttclient,"/echo",msg->message);
 
     cpp_free(topic);
