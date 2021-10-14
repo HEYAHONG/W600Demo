@@ -21,7 +21,7 @@
 #include "task.h"
 #include "semphr.h"
 #include "lwip/sockets.h"
-#include "netdb.h"
+#include "lwip/netdb.h"
 #include "string.h"
 
 #ifndef TickType_t
