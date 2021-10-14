@@ -7,7 +7,6 @@ C++全局变量的构造及析构需小心使用(尽量不用)
 extern "C"
 {
 
-#include "config.h"
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -23,7 +22,7 @@ extern "C"
 
 static  __unused const char * TAG="cpp";
 
-
+#include "appconfig.h"
 
 //重载operator new
 void* operator new(size_t nsize)
