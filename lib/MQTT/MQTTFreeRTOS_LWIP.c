@@ -95,7 +95,7 @@ int FreeRTOS_read(Network* n, unsigned char* buffer, int len, int timeout_ms)
     {
         int rc = 0;
 
-        setsockopt(n->my_socket, 0, SO_RCVTIMEO, &xTicksToWait, sizeof(xTicksToWait));
+        //setsockopt(n->my_socket, 0, SO_RCVTIMEO, &xTicksToWait, sizeof(xTicksToWait));
         rc = recv(n->my_socket, buffer + recvLen, len - recvLen, 0);
         if (rc > 0)
             recvLen += rc;
@@ -122,7 +122,7 @@ int FreeRTOS_write(Network* n, unsigned char* buffer, int len, int timeout_ms)
     {
         int rc = 0;
 
-        setsockopt(n->my_socket, 0, SO_RCVTIMEO, &xTicksToWait, sizeof(xTicksToWait));
+        //setsockopt(n->my_socket, 0, SO_RCVTIMEO, &xTicksToWait, sizeof(xTicksToWait));
         rc = send(n->my_socket, buffer + sentLen, len - sentLen, 0);
         if (rc > 0)
             sentLen += rc;
