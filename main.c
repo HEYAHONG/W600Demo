@@ -29,7 +29,7 @@ static void main_task(void *arg)
 
     printf("%s:user flash start=%08X length=%u,ex user flash start=%08X length=%u\r\n",TAG,USER_ADDR_START,USER_AREA_LEN,EX_USER_ADDR_START,EX_USER_AREA_LEN);
     printf("%s:free memory %d bytes\r\n",TAG,tls_mem_get_avail_heapsize());
-    printf("%s:main task running\r\ntick=%lu\r\n",TAG,xTaskGetTickCount());
+    printf("%s:main task running\r\n",TAG);
 
 
     while(true)
