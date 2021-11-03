@@ -445,17 +445,14 @@ ${SDK_ROOT}/Src/App/wm_atcmd/wm_cmd.c
 
 #添加paho库
 file(GLOB  PAHO_MQTTPACKET_C_FILES lib/MQTT/paho.mqtt.embedded-c/MQTTPacket/src/*.c)
-file(GLOB  PAHO_MQTTCLIENT_C_C_FILES lib/MQTT/paho.mqtt.embedded-c/MQTTClient-C/src/*.c)
 file(GLOB  PAHO_PORT_C_FILES lib/MQTT/*.c)
 list(APPEND PAHO_SRCS
 ${PAHO_MQTTPACKET_C_FILES}
-${PAHO_MQTTCLIENT_C_C_FILES}
 ${PAHO_PORT_C_FILES}
 )
 add_library(PAHO_MQTT STATIC ${PAHO_SRCS})
 target_include_directories(PAHO_MQTT
 PUBLIC lib/MQTT/paho.mqtt.embedded-c/MQTTPacket/src/
-PUBLIC lib/MQTT/paho.mqtt.embedded-c/MQTTClient-C/src/
 PUBLIC lib/MQTT/
 )
 target_compile_definitions(PAHO_MQTT 
