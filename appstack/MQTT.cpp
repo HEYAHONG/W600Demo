@@ -59,7 +59,7 @@ static void mqtt_receive_task(void *arg)
     while(true)
     {
         //测试MQTT连接
-        printf("%s:mqtt test start!!\r\n",TAG);
+        printf("%s:mqtt start!!\r\n",TAG);
 
 
         NetworkInit(&mqttserver);

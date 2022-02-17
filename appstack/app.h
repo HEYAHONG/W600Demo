@@ -5,6 +5,8 @@
 extern "C"
 {
 #endif // __cplusplus
+#include "FreeRTOS.h"
+#include "task.h"
 
 void app_init();
 

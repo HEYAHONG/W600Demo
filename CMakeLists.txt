@@ -443,8 +443,10 @@ ${SDK_ROOT}/Src/App/wm_atcmd/wm_cmd.c
 
 )
 
-#添加paho库
-file(GLOB  PAHO_MQTTPACKET_C_FILES lib/MQTT/paho.mqtt.embedded-c/MQTTPacket/src/*.c)
+#添加SimpleMQTTGateWayStack库
+add_subdirectory(lib/SimpleMQTTGateWayStack/lib)
+
+#添加MQTT移植
 file(GLOB  PAHO_PORT_C_FILES lib/MQTT/*.c)
 list(APPEND PAHO_SRCS
 ${PAHO_MQTTPACKET_C_FILES}
@@ -452,12 +454,12 @@ ${PAHO_PORT_C_FILES}
 )
 add_library(PAHO_MQTT STATIC ${PAHO_SRCS})
 target_include_directories(PAHO_MQTT
-PUBLIC lib/MQTT/paho.mqtt.embedded-c/MQTTPacket/src/
 PUBLIC lib/MQTT/
 )
-target_compile_definitions(PAHO_MQTT 
-PRIVATE MQTTCLIENT_PLATFORM_HEADER=MQTTFreeRTOS_LWIP.h
+target_compile_definitions(PAHO_MQTT
+PUBLIC MQTTCLIENT_PLATFORM_HEADER=MQTTFreeRTOS_LWIP.h
 )
+target_link_libraries(PAHO_MQTT SMGS)
 
 #使用源代码编译的库文件
 add_library(SDK_SOURCE_LIB STATIC ${SDK_SRCS})
