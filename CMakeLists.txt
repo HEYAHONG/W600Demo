@@ -457,7 +457,7 @@ target_include_directories(PAHO_MQTT
 PUBLIC lib/MQTT/
 )
 target_compile_definitions(PAHO_MQTT
-PUBLIC MQTTCLIENT_PLATFORM_HEADER=MQTTFreeRTOS_LWIP.h
+PUBLIC MQTTCLIENT_PLATFORM_HEADER=MQTTFreeRTOS_LWIP.h MQTT_TASK
 )
 target_link_libraries(PAHO_MQTT SMGS)
 
