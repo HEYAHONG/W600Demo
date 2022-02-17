@@ -5,6 +5,7 @@
 #include "wifinetwork.h"
 #include "ntp.h"
 
+uint8_t macaddr[MACADDR_LENGTH]={0};
 
 extern unsigned int USER_ADDR_START;
 extern unsigned int USER_AREA_LEN;
@@ -19,6 +20,7 @@ static void main_task(void *arg)
 #if CONFIG_WIFI_NETWORK == 1
     //初始化WIFINetwork
     wifinetwork_init();
+    tls_get_mac_addr(macaddr);
 #endif // CONFIG_WIFI_NETWORK
 
 #if CONFIG_PROTOCOL_NTP == 1
