@@ -4,8 +4,9 @@
 #include "app.h"
 #include "wifinetwork.h"
 #include "ntp.h"
+#include "RC.h"
 
-uint8_t macaddr[MACADDR_LENGTH]={0};
+uint8_t macaddr[MACADDR_LENGTH]= {0};
 
 extern unsigned int USER_ADDR_START;
 extern unsigned int USER_AREA_LEN;
@@ -16,6 +17,13 @@ static const char * TAG="main";
 static uint32_t main_task_stack[1024];
 static void main_task(void *arg)
 {
+
+    {
+        char * banner=(char *)RCGetHandle("banner");
+        if(banner!=NULL)
+            printf("%s",banner);
+    }
+
 
 #if CONFIG_WIFI_NETWORK == 1
     //初始化WIFINetwork

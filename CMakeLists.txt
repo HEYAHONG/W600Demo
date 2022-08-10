@@ -544,12 +544,15 @@ if(${USE_KCONFIG})
 
 endif()
 
+#添加资源目录
+add_subdirectory(rc)
+
 #设置头文件
 include_directories(${MAIN_INCLUDE_DIRS})
 
 #添加可执行文件
 add_executable(${PROJECT_NAME} ${MAIN_SRCS})
-target_link_libraries(${PROJECT_NAME} SDK_SOURCE_LIB PAHO_MQTT ${SDK_PRECOMPILED_LIBS} )
+target_link_libraries(${PROJECT_NAME} SDK_SOURCE_LIB PAHO_MQTT RC ${SDK_PRECOMPILED_LIBS} )
 
 #生成bin文件
 add_custom_target(${PROJECT_NAME}.bin ALL
