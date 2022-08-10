@@ -1,11 +1,13 @@
-﻿
+﻿#include <string>
 #include "app.h"
 #include "MQTT.hpp"
-
+#include "stdio.h"
+#include "string.h"
 
 static const char * TAG="app";
 
 char macaddrstr[20]={0};
+
 
 void app_init()
 {

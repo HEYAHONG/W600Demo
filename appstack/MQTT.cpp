@@ -1,5 +1,6 @@
 #include "MQTT.hpp"
 #include "string.h"
+#include "libSMGS.h"
 #ifdef __cplusplus
 extern "C"
 {

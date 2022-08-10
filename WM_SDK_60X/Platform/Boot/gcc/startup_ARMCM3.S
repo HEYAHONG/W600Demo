@@ -89,12 +89,12 @@ __isr_vector:
 	/* External interrupts */
 	.long   SDIO_RX_IRQHandler       	/*HSPI&SDIO SLAVE Trasmit*/
     .long   SDIO_TX_IRQHandler       	/*HSPI & SDIO SLAVE Receive Data*/
-    .long   0						 	/*Not Used*/	
+    .long   0						 	/*Not Used*/
     .long   SDIO_TX_CMD_IRQHandler	 	/*HSPI & SDIO SLAVE Receive Command*/
     .long   tls_wl_mac_isr			 	/*MAC isr*/
-    .long   0						 	/*Not Used*/       
-    .long   tls_wl_rx_isr				/*Wi-Fi Rx isr*/         
-    .long   tls_wl_mgmt_tx_isr  		/*Wi-Fi Managment tx isr*/  
+    .long   0						 	/*Not Used*/
+    .long   tls_wl_rx_isr				/*Wi-Fi Rx isr*/
+    .long   tls_wl_mgmt_tx_isr  		/*Wi-Fi Managment tx isr*/
     .long   tls_wl_data_tx_isr    		/*Wi-Fi Data Tx isr*/
     .long   PMU_TIMER1_IRQHandler 		/*PMU  Timer1*/
     .long   PMU_TIMER0_IRQHandler 		/*PMU  Timer0*/
@@ -105,7 +105,7 @@ __isr_vector:
     .long   DMA_Channel2_IRQHandler  	/*DMA Channel 2*/
     .long   DMA_Channel3_IRQHandler  	/*DMA Channel 3*/
     .long   DMA_Channel4_7_IRQHandler	/*DMA Channel 4-7*/
-    .long   DMA_BURST_IRQHandler		/*DMA Burst isr*/     
+    .long   DMA_BURST_IRQHandler		/*DMA Burst isr*/
     .long   I2C_IRQHandler 				/*I2C isr*/
     .long   ADC_IRQHandler 				/*ADC isr*/
     .long   SPI_LS_IRQHandler 			/*Master SPI isr*/
@@ -113,13 +113,13 @@ __isr_vector:
     .long   UART0_IRQHandler  			/*UART0 isr*/
     .long   UART1_IRQHandler  			/*UART1 isr*/
     .long   GPIOA_IRQHandler  			/*GPIOA isr*/
-    .long   TIM0_IRQHandler				/*TIM0 isr*/   
-    .long   TIM1_IRQHandler 			/*TIM1 isr*/  
-    .long   TIM2_IRQHandler				/*TIM2 isr*/   
-    .long   TIM3_IRQHandler 			/*TIM3 isr*/  
-    .long   TIM4_IRQHandler  			/*TIM4 isr*/ 
+    .long   TIM0_IRQHandler				/*TIM0 isr*/
+    .long   TIM1_IRQHandler 			/*TIM1 isr*/
+    .long   TIM2_IRQHandler				/*TIM2 isr*/
+    .long   TIM3_IRQHandler 			/*TIM3 isr*/
+    .long   TIM4_IRQHandler  			/*TIM4 isr*/
     .long   TIM5_IRQHandler   			/*TIM5 isr*/
-    .long   WDG_IRQHandler 				/*Watchdog isr*/   
+    .long   WDG_IRQHandler 				/*Watchdog isr*/
     .long   0    						/*Not Used*/
     .long   0  							/*Not Used*/
     .long   PWM_IRQHandler				/*PWM isr*/
@@ -127,8 +127,8 @@ __isr_vector:
     .long   PMU_RTC_IRQHandler			/*PMU RTC isr*/
     .long   RSA_IRQHandler    			/*RSA isr*/
     .long   CRYPTION_IRQHandler			/*CRYPTION isr*/
-    .long   GPIOB_IRQHandler			/*GPIOB isr*/   
-    .long   UART2_IRQHandler			/*UART2&7816 isr*/   
+    .long   GPIOB_IRQHandler			/*GPIOB isr*/
+    .long   UART2_IRQHandler			/*UART2&7816 isr*/
 
 	.size	__isr_vector, . - __isr_vector
 
@@ -179,10 +179,10 @@ Reset_Handler:
 	blt	.L_loop3
 /*
 #ifndef __NO_SYSTEM_INIT
-	 bl	SystemInit 
+	 bl	SystemInit
 #endif
 */
-	bl	main
+	bl	_start
 
 	.pool
 	.size	Reset_Handler, . - Reset_Handler
@@ -212,7 +212,7 @@ Default_Handler:
 	def_irq_handler	DebugMon_Handler
 	def_irq_handler	PendSV_Handler
 	def_irq_handler	OS_CPU_SysTickHandler
-	
+
 	def_irq_handler SDIO_RX_IRQHandler
     def_irq_handler SDIO_TX_IRQHandler
     def_irq_handler SDIO_TX_CMD_IRQHandler
@@ -230,26 +230,26 @@ Default_Handler:
     def_irq_handler DMA_Channel3_IRQHandler
     def_irq_handler DMA_Channel4_7_IRQHandler
     def_irq_handler DMA_BURST_IRQHandler
-    /*def_irq_handler I2C_IRQHandler*/  
+    /*def_irq_handler I2C_IRQHandler*/
     def_irq_handler ADC_IRQHandler
     def_irq_handler SPI_LS_IRQHandler
     def_irq_handler SPI_HS_IRQHandler
-    def_irq_handler UART0_IRQHandler 
-    def_irq_handler UART1_IRQHandler 
-    def_irq_handler GPIOA_IRQHandler 
-    def_irq_handler TIM0_IRQHandler  
-    def_irq_handler TIM1_IRQHandler  
-    def_irq_handler TIM2_IRQHandler  
-    def_irq_handler TIM3_IRQHandler  
-    def_irq_handler TIM4_IRQHandler  
-    def_irq_handler TIM5_IRQHandler  
-    def_irq_handler WDG_IRQHandler   
-    /*def_irq_handler PWM_IRQHandler*/ 
-    /*def_irq_handler I2S_IRQHandler*/  
+    def_irq_handler UART0_IRQHandler
+    def_irq_handler UART1_IRQHandler
+    def_irq_handler GPIOA_IRQHandler
+    def_irq_handler TIM0_IRQHandler
+    def_irq_handler TIM1_IRQHandler
+    def_irq_handler TIM2_IRQHandler
+    def_irq_handler TIM3_IRQHandler
+    def_irq_handler TIM4_IRQHandler
+    def_irq_handler TIM5_IRQHandler
+    def_irq_handler WDG_IRQHandler
+    /*def_irq_handler PWM_IRQHandler*/
+    /*def_irq_handler I2S_IRQHandler*/
     /*def_irq_handler PMU_RTC_IRQHandler*/
-    def_irq_handler RSA_IRQHandler        
-    def_irq_handler CRYPTION_IRQHandler   
-    def_irq_handler GPIOB_IRQHandler      
-    def_irq_handler UART2_IRQHandler      
+    def_irq_handler RSA_IRQHandler
+    def_irq_handler CRYPTION_IRQHandler
+    def_irq_handler GPIOB_IRQHandler
+    def_irq_handler UART2_IRQHandler
 
 	.end

@@ -6,10 +6,10 @@ _ssize_t _write_r (struct _reent *r, int file, const void *ptr, size_t len)
 {
 	size_t i;
 	char *p;
-	
+
 	p = (char*) ptr;
-	
-	for (i = 0; i < len; i++) 
+
+	for (i = 0; i < len; i++)
 	{
 		sendchar(*p++);
 	}
@@ -41,9 +41,15 @@ int _isatty(int file)
 	return 1;
 }
 
+
+
 void abort(void)
 {
   while(1);
+}
+void _exit(int exitcode)
+{
+    abort();
 }
 
 extern char end[];
@@ -53,7 +59,7 @@ static char *heap_end = __HeapLimit;
 /**
  * @brief          This function is used to extend current heap size, Limit is __HeapLimit
  *
- * @param[in]    None  
+ * @param[in]    None
  *
  * @return         None
  *
@@ -70,7 +76,7 @@ void * _sbrk_r(struct _reent *_s_r, ptrdiff_t nbytes)
 		return (void *)-1;
     }
 
-	heap_ptr += nbytes;	
+	heap_ptr += nbytes;
 	return base;
 }
 
@@ -81,11 +87,11 @@ void * tls_reserve_mem_lock(int nbytes)
 		return NULL;
 	}
 	heap_end  -= (nbytes + 4);
-	return (void *)((((int)heap_end + 3) >> 2) << 2);	
+	return (void *)((((int)heap_end + 3) >> 2) << 2);
 }
 
 void tls_reserve_mem_unlock(void)
-{	
+{
 	heap_end = __HeapLimit;
 }
 
