@@ -1,4 +1,4 @@
-﻿#include <string>
+﻿
 #include "app.h"
 #include "MQTT.hpp"
 #include "stdio.h"
