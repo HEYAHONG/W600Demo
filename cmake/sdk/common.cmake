@@ -1,5 +1,5 @@
 #设置链接脚本
-option(BUILD_FLASH_2M "2m flash" OFF)
+option(BUILD_FLASH_2M "2m flash" ON)
 
 if(${BUILD_FLASH_2M})
 	set(CMAKE_EXE_LINKER_FLAGS " ${CMAKE_EXE_LINKER_FLAGS} \
