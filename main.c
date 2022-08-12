@@ -6,7 +6,7 @@
 #include "ntp.h"
 #include "RC.h"
 
-uint8_t macaddr[MACADDR_LENGTH]= {0};
+uint8_t macaddr[6]= {0};
 
 extern unsigned int USER_ADDR_START;
 extern unsigned int USER_AREA_LEN;
