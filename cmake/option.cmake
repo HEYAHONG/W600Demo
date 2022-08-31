@@ -18,6 +18,7 @@ set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} \
                 --data-sections \
                 -mcpu=cortex-m3 \
                 -std=c++2a \
+                -Wno-psabi \
                 -march=armv7-m \
                  " )
 

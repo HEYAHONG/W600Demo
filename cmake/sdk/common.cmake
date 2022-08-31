@@ -234,9 +234,9 @@ ${SDK_ROOT}/Platform/Boot/gcc/
 ${SDK_ROOT}/Src/Network/api2.0.3/
 ${SDK_ROOT}/Src/Network/lwip2.0.3/
 ${SDK_ROOT}/Src/Network/lwip2.0.3/include/
-${SDK_ROOT}/Src/Network/lwip2.0.3/include/arch/
-${SDK_ROOT}/Src/Network/lwip2.0.3/include/lwip/
-${SDK_ROOT}/Src/Network/lwip2.0.3/include/netif/
+##${SDK_ROOT}/Src/Network/lwip2.0.3/include/arch/
+##${SDK_ROOT}/Src/Network/lwip2.0.3/include/lwip/
+##${SDK_ROOT}/Src/Network/lwip2.0.3/include/netif/
 ${SDK_ROOT}/Src/App/libwebsockets-2.1-stable/
 ${SDK_ROOT}/Src/App/httpclient/
 ${SDK_ROOT}/Src/App/lwm2m-wakaama/core/

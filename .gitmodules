@@ -1,3 +1,6 @@
 [submodule "lib/SimpleMQTTGateWayStack"]
 	path = lib/SimpleMQTTGateWayStack
 	url = ../../HEYAHONG/SimpleMQTTGateWayStack.git
+[submodule "lib/jsoncpp/jsoncpp"]
+	path = lib/jsoncpp/jsoncpp
+	url = ../../HEYAHONG/jsoncpp.git

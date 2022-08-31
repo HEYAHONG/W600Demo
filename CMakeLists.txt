@@ -96,6 +96,12 @@ list(APPEND LIBS
 RC
 )
 
+#添加jsoncpp
+add_subdirectory(lib/jsoncpp)
+list(APPEND LIBS
+jsoncpp
+)
+
 #添加SimpleMQTTGateWayStack库
 add_subdirectory(lib/SimpleMQTTGateWayStack/lib)
 

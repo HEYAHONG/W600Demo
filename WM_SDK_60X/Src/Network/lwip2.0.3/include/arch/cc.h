@@ -73,6 +73,6 @@ typedef u32_t mem_ptr_t;
 #define LWIP_PLATFORM_DIAG(x) do { printf x;} while(0)
 #endif
 
-#define LWIP_PROVIDE_ERRNO /* Make lwip/arch.h define the codes which are used throughout */
+//#define LWIP_PROVIDE_ERRNO   /* Make lwip/arch.h define the codes which are used throughout */
 
 #endif /* CC_H_INCLUDED */
