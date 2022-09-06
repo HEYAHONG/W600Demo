@@ -93,3 +93,28 @@ mingw32-make flash
 
 WM_SDK_60X目录为官方公开的SDK，版本为WM_SDK_W60X_G3.04.00
 
+
+
+# 其它开发方式说明
+
+## RT-Thread
+
+除了使用SDK进行开发,还可使用RT-Thread进行开发。
+
+支持的BSP目录为：bsp/w60x
+
+### 相关链接
+
+- https://github.com/RT-Thread/rt-thread.git
+- https://gitee.com/rtthread/rt-thread.git
+
+## LuatOS
+
+除了进行C/C++开发，还可进行lua开发。
+
+支持的BSP目录为:bsp/air640w
+
+### 相关链接
+
+- https://github.com/openLuat/LuatOS.git
+- https://gitee.com/openLuat/LuatOS.git
