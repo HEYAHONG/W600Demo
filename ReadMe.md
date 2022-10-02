@@ -1,4 +1,4 @@
-# **使用rt-thread开发的Demo请见[W600RthreadDemo](../W600RthreadDemo)**
+# **使用rt-thread开发的Demo请见[W600RthreadDemo](https://github.com/HEYAHONG/W600RthreadDemo.git)**
 
 # 说明
 
