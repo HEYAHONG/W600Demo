@@ -1,3 +1,5 @@
+# **使用rt-thread开发的Demo请见[W600RthreadDemo](../W600RthreadDemo)**
+
 # 说明
 
 这是一个使用[W600](https://www.winnermicro.com/html/1/156/158/497.html)开发的Demo（仅供测试）。
