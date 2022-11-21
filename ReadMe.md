@@ -51,6 +51,12 @@
 
 某些系统的运行环境配置见  [doc/environment.md](doc/environment.md)
 
+除了自行安装上述工具，在Linux下还可直接使用docker(需要自行安装docker)命令直接进入编译环境：
+
+```bash
+sudo docker run -it --rm -u  `id -u`:`id -g` -v `pwd`:/work -w /work heyahong/buildenv-ubuntu22.04:w600
+```
+
 ## 步骤
 
 在Windows下需要使用MSYS的Mingw32/mingw64终端,在Linux下需要使用终端。
