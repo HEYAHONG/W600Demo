@@ -91,19 +91,19 @@ if(${USE_KCONFIG})
 endif()
 
 #添加资源目录
-add_subdirectory(rc)
+add_subdirectory(rc EXCLUDE_FROM_ALL)
 list(APPEND LIBS
 RC
 )
 
 #添加jsoncpp
-add_subdirectory(lib/jsoncpp)
+add_subdirectory(lib/jsoncpp EXCLUDE_FROM_ALL)
 list(APPEND LIBS
 jsoncpp
 )
 
 #添加SimpleMQTTGateWayStack库
-add_subdirectory(lib/SimpleMQTTGateWayStack/lib)
+add_subdirectory(lib/SimpleMQTTGateWayStack/lib EXCLUDE_FROM_ALL)
 
 #添加MQTT移植
 file(GLOB  PAHO_PORT_C_FILES lib/MQTT/*.c)
